@@ -3,13 +3,14 @@ import "./App.css";
 import FloatingShape from "./components/FloatingShape";
 import { Route, Routes, Navigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
+import { useAuthStore, useCheckAuth } from "./store/authStore";
 
 //pages
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import EmailVerificationPage from "./pages/EmailVerificationPage";
-import { useAuthStore } from "./store/authStore";
 import DashboardPage from "./pages/DashboardPage";
+import LoadingSpinner from "./components/LoadingSpinner";
 
 //protect routes that require authentication
 const ProtectedRoute = ({ children }) => {
@@ -38,14 +39,15 @@ const RedirectAuthenticatedUser = ({ children }) => {
 };
 
 function App() {
-  const { isCheckingAuth, checkAuth, isAuthenticated, user } = useAuthStore();
+  const { isCheckingAuth, isAuthenticated, user } = useAuthStore();
+
+  const CheckAuth = useCheckAuth();
 
   useEffect(() => {
-    checkAuth();
-  }, [checkAuth]);
+    CheckAuth();
+  }, [CheckAuth]);
 
-  console.log("isauthenticated", isAuthenticated);
-  console.log("user", user);
+  if (isCheckingAuth) return <LoadingSpinner />;
 
   return (
     <div
