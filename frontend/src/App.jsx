@@ -4,6 +4,7 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import FloatingShape from "./components/FloatingShape";
 import { Route, Routes } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 
 //pages
 import SignUpPage from "./pages/SignUpPage";
@@ -46,6 +47,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/verify-email" element={<EmailVerificationPage />} />
       </Routes>
+      <Toaster />
     </div>
   );
 }
