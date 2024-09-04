@@ -107,7 +107,15 @@ function App() {
             </RedirectAuthenticatedUser>
           }
         />
-        <Route path="/verify-email" element={<EmailVerificationPage />} />
+        <Route
+          path="/verify-email"
+          element={
+            <ProtectedRoute>
+              <EmailVerificationPage />
+            </ProtectedRoute>
+          }
+        />
+
         <Route
           path="/forgot-password"
           element={
@@ -124,6 +132,8 @@ function App() {
             </RedirectAuthenticatedUser>
           }
         />
+        <Route path="*" element={<Navigate to="/" replace />} />
+        {/* catch all routes */}
       </Routes>
       <Toaster />
     </div>
