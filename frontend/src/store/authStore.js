@@ -2,7 +2,7 @@ import { create } from "zustand";
 import axios from "axios";
 import { useCallback } from "react";
 
-const API_URL = "http://localhost:3001/api/auth";
+const API_URL = import.meta.env.MODE === "development" ? "http://localhost:3001/api/auth" : "/api/auth";
 
 axios.defaults.withCredentials = true;
 
