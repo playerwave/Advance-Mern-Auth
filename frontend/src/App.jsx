@@ -5,12 +5,16 @@ import { Route, Routes, Navigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { useAuthStore, useCheckAuth } from "./store/authStore";
 
-//pages
+//import Components
+import LoadingSpinner from "./components/LoadingSpinner";
+
+//import Pages
 import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import EmailVerificationPage from "./pages/EmailVerificationPage";
 import DashboardPage from "./pages/DashboardPage";
-import LoadingSpinner from "./components/LoadingSpinner";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 
 //protect routes that require authentication
 const ProtectedRoute = ({ children }) => {
@@ -103,12 +107,21 @@ function App() {
             </RedirectAuthenticatedUser>
           }
         />
+        <Route path="/verify-email" element={<EmailVerificationPage />} />
         <Route
-          path="/verify-email"
+          path="/forgot-password"
           element={
-            <ProtectedRoute>
-              <EmailVerificationPage />
-            </ProtectedRoute>
+            <RedirectAuthenticatedUser>
+              <ForgotPasswordPage />
+            </RedirectAuthenticatedUser>
+          }
+        />
+        <Route
+          path="/reset-password/:token"
+          element={
+            <RedirectAuthenticatedUser>
+              <ResetPasswordPage />
+            </RedirectAuthenticatedUser>
           }
         />
       </Routes>
