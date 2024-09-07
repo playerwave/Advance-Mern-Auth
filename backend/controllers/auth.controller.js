@@ -189,7 +189,7 @@ export const resetPassword = async (req, res) => {
     });
 
     if (!user) {
-      return resetPassword.status({
+      return res.status({
         success: false,
         message: "Invalid or expired reset token",
       });
