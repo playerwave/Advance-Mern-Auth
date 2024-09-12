@@ -8,6 +8,7 @@ import {
   sendResetSuccessEmail,
 } from "../mailtrap/emails.js";
 import crypto from "crypto";
+import { log } from "console";
 
 export const signup = async (req, res) => {
   const { email, password, name } = req.body;
@@ -148,9 +149,14 @@ export const forgotPassword = async (req, res) => {
         .json({ success: false, message: "User not found" });
     }
 
+    console.log("have this user");
+
     //generate reset token
     const resetToken = crypto.randomBytes(20).toString("hex");
     const resetTokenExpiresAt = Date.now() + 1 * 60 * 60 * 1000; //1 hours
+
+    console.log('create token');
+    
 
     user.resetPasswordToken = resetToken;
     user.resetPasswordExpiresAt = resetTokenExpiresAt;
@@ -158,6 +164,8 @@ export const forgotPassword = async (req, res) => {
     await user.save();
 
     // send mail
+    console.log('send email');
+    
     await sendPasswordResetEmail(
       user.email,
       user.name,

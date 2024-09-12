@@ -6,13 +6,15 @@ dotenv.config();
 const TOKEN = process.env.MAILTRAP_TOKEN;
 const ENDPOINT = process.env.MAILTRAP_ENDPOINT;
 
+console.log(TOKEN);
+console.log(ENDPOINT);
+
 export const mailtrapClient = new MailtrapClient({
-  endpoint:ENDPOINT,
+  endpoint: ENDPOINT,
   token: TOKEN,
 });
 
 export const sender = {
   email: "mailtrap@demomailtrap.com",
-  name: "Player0ne",
+  name: "Mailtrap Test",
 };
-
